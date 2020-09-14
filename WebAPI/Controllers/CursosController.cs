@@ -10,9 +10,6 @@ namespace WebAPI.Controllers
 {
 
     //http://localhost:5000/api/cursos
-
-    [Route("api/[Controller]")]
-    [ApiController]
     public class CursosController : MiControllerBase
     {
         
