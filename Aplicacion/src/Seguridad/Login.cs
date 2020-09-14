@@ -1,5 +1,6 @@
 ﻿using Aplicacion.src.ManejadorErrores;
 using Dominio.src;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -18,6 +19,22 @@ namespace Aplicacion.src.Seguridad
 
             public string Passoword { get; set; }
         }
+
+
+        public class EjecutaValidacion : AbstractValidator<Ejecuta>
+        {
+            public EjecutaValidacion()
+            {
+                RuleFor(x => x.Email)
+                    .NotEmpty()
+                    .WithMessage("El correo no debe estar vació");
+
+                RuleFor(x => x.Passoword)
+                    .NotEmpty()
+                    .WithMessage("El password no debe estar vació");
+            }
+        }
+
 
 
         public class Manejador : IRequestHandler<Ejecuta, Usuario>
