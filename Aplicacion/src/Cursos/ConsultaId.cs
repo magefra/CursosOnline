@@ -15,7 +15,7 @@ namespace Aplicacion.src.Cursos
     {
         public class CursoUnico : IRequest<Curso>
         {
-            public int Id { get; set; }
+            public Guid CursoId { get; set; }
         }
 
         public class Manejador : IRequestHandler<CursoUnico, Curso>
@@ -43,7 +43,7 @@ namespace Aplicacion.src.Cursos
             /// <returns></returns>
             public  async Task<Curso> Handle(CursoUnico request, CancellationToken cancellationToken)
             {
-                var curso = await _cursosContext.Curso.FindAsync(request.Id);
+                var curso = await _cursosContext.Curso.FindAsync(request.CursoId);
 
 
 

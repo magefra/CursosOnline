@@ -36,9 +36,9 @@ namespace WebAPI.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Curso>> Detalle(int id)
+        public async Task<ActionResult<Curso>> Detalle(Guid id)
         {
-            return await _mediator.Send(new ConsultaId.CursoUnico { Id = id });
+            return await _mediator.Send(new ConsultaId.CursoUnico { CursoId = id });
         }
 
 
