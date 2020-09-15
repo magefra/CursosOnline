@@ -1,4 +1,5 @@
-﻿using Aplicacion.src.ManejadorErrores;
+﻿using Aplicacion.src.Contratos;
+using Aplicacion.src.ManejadorErrores;
 using Dominio.src;
 using FluentValidation;
 using MediatR;
@@ -13,7 +14,7 @@ namespace Aplicacion.src.Seguridad
 {
     public class Login
     {
-        public class Ejecuta : IRequest<Usuario>
+        public class Ejecuta : IRequest<UsuarioData>
         {
             public string Email { get; set; }
 
@@ -37,7 +38,7 @@ namespace Aplicacion.src.Seguridad
 
 
 
-        public class Manejador : IRequestHandler<Ejecuta, Usuario>
+        public class Manejador : IRequestHandler<Ejecuta, UsuarioData>
         {
             /// <summary>
             /// 
@@ -49,12 +50,20 @@ namespace Aplicacion.src.Seguridad
             /// </summary>
             private readonly SignInManager<Usuario> _signInManager;
 
+            /// <summary>
+            /// 
+            /// </summary>
+            private readonly IJwtGenerador _jwtGenerador;
+
+
 
             public Manejador(UserManager<Usuario> userManager,
-                             SignInManager<Usuario> signInManager)
+                             SignInManager<Usuario> signInManager,
+                             IJwtGenerador jwtGenerador)
             {
                 _userManager = userManager;
                 _signInManager = signInManager;
+                _jwtGenerador = jwtGenerador;
             }
 
 
@@ -64,7 +73,7 @@ namespace Aplicacion.src.Seguridad
             /// <param name="request"></param>
             /// <param name="cancellationToken"></param>
             /// <returns></returns>
-            public async Task<Usuario> Handle(Ejecuta request, CancellationToken cancellationToken)
+            public async Task<UsuarioData> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
                 var usuario = await _userManager.FindByEmailAsync(request.Email);
 
@@ -76,9 +85,18 @@ namespace Aplicacion.src.Seguridad
 
                 var resultado = await _signInManager.CheckPasswordSignInAsync(usuario, request.Passoword, false);
 
+
+
                 if (resultado.Succeeded)
                 {
-                    return usuario;
+                    return new UsuarioData
+                    {
+                        NombreCompleto = usuario.NombreCompleto,
+                        Email = usuario.Email,
+                        Token = _jwtGenerador.crearToken(usuario),
+                        UserName = usuario.UserName,
+                        Imagen  = null
+                    };
                 }
 
 
