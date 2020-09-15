@@ -78,8 +78,7 @@ namespace WebAPI
                     });
 
             services.AddScoped<IJwtGenerador, JwtGenerador>();
-
-
+            services.AddScoped<IUsuarioSesion, UsuarioSesion>();
 
         }
 

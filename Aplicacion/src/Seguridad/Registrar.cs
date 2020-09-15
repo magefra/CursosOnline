@@ -1,14 +1,13 @@
 ﻿using Aplicacion.src.Contratos;
 using Aplicacion.src.ManejadorErrores;
 using Dominio.src;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Persistencia.src.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,6 +28,25 @@ namespace Aplicacion.src.Seguridad
             public string UserName { get; set; }
 
         }
+
+
+        public class EjecutaValidador : AbstractValidator<Ejecuta>
+        {
+            public EjecutaValidador()
+            {
+                RuleFor(x => x.Nombre).NotEmpty();
+
+                RuleFor(x => x.Apellidos).NotEmpty();
+
+                RuleFor(x => x.Email).NotEmpty();
+
+                RuleFor(x => x.Password).NotEmpty();
+
+                RuleFor(x => x.UserName).NotEmpty();
+
+            }
+        }
+
 
         public class Manejador : IRequestHandler<Ejecuta, UsuarioData>
         {
@@ -108,7 +126,8 @@ namespace Aplicacion.src.Seguridad
                     {
                         NombreCompleto = usuario.NombreCompleto,
                         Token = _jwtGenerador.crearToken(usuario),
-                        UserName = usuario.UserName
+                        UserName = usuario.UserName,
+                        Email = usuario.Email
                     };
                 }
 
