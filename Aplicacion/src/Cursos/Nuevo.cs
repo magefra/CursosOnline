@@ -19,10 +19,11 @@ namespace Aplicacion.src.Cursos
             [Required(ErrorMessage ="Por favor ingrese el Título del curso")]
             public string Titulo { get; set; }
 
-
             public string Descripcion { get; set; }
 
-            public DateTime FechaPublicacion { get; set; }
+            public DateTime? FechaPublicacion { get; set; }
+
+            public List<Guid> ListaInstructor { get; set; }
         }
 
 
@@ -66,19 +67,37 @@ namespace Aplicacion.src.Cursos
             /// <returns></returns>
             public async Task<Unit> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
+
+                Guid _cursoId = Guid.NewGuid();
+
                 var curso = new Curso()
                 {
+                    CursoId = _cursoId,
                     Titulo = request.Titulo,
                     Descripcion = request.Descripcion,
                     FechaPublicacion = request.FechaPublicacion
                 };
-
-
                 _cursosContext.Curso.Add(curso);
+
+
+                if(request.ListaInstructor != null)
+                {
+                    CursoInstructor cursoInstructor = null;
+                    foreach (var id in request.ListaInstructor)
+                    {
+                        cursoInstructor = new CursoInstructor
+                        {
+                            CursoId = _cursoId,
+                            InstructorId = id
+                        };
+
+                        _cursosContext.CursoInstructor.Add(cursoInstructor);
+                        
+                    }
+                }
+
+
                 var valor =  await _cursosContext.SaveChangesAsync();
-
-
-
                 if (valor > 0)
                     return Unit.Value;
 
