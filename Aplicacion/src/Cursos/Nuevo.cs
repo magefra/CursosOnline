@@ -24,6 +24,10 @@ namespace Aplicacion.src.Cursos
             public DateTime? FechaPublicacion { get; set; }
 
             public List<Guid> ListaInstructor { get; set; }
+
+            public decimal Precio { get; set; }
+
+            public decimal Promocion { get; set; }
         }
 
 
@@ -80,6 +84,7 @@ namespace Aplicacion.src.Cursos
                 _cursosContext.Curso.Add(curso);
 
 
+                //Instructores
                 if(request.ListaInstructor != null)
                 {
                     CursoInstructor cursoInstructor = null;
@@ -95,6 +100,18 @@ namespace Aplicacion.src.Cursos
                         
                     }
                 }
+
+
+                //Precio
+                var precioEntidad = new Precio
+                {
+                    CursoId = _cursoId,
+                    PrecioActual = request.Precio,
+                    Promocion = request.Promocion,
+                    PrecioId = Guid.NewGuid()
+                };
+
+                _cursosContext.Precio.Add(precioEntidad);
 
 
                 var valor =  await _cursosContext.SaveChangesAsync();

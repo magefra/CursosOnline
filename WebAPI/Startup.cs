@@ -2,6 +2,7 @@
 
 using Aplicacion.src.Contratos;
 using Aplicacion.src.Cursos;
+using AutoMapper;
 using Dominio.src;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -79,6 +80,7 @@ namespace WebAPI
 
             services.AddScoped<IJwtGenerador, JwtGenerador>();
             services.AddScoped<IUsuarioSesion, UsuarioSesion>();
+            services.AddAutoMapper(typeof(Consulta.Manejador));
 
         }
 

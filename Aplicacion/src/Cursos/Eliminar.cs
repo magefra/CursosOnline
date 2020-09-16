@@ -3,6 +3,7 @@ using MediatR;
 using Persistencia.src.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -40,8 +41,33 @@ namespace Aplicacion.src.Cursos
             /// <returns></returns>
             public async Task<Unit> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
-                var curso = await _cursosContext.Curso.FindAsync(request.Id);
 
+                //Instructores
+                var instructoresBD = _cursosContext.CursoInstructor.Where(c => c.CursoId == request.Id);                
+                foreach(var instructor in instructoresBD)
+                {
+                    _cursosContext.CursoInstructor.Remove(instructor);
+                }
+
+
+                //Comentarios
+                var comentariosBD = _cursosContext.Comentario.Where(x => x.CursoId == request.Id);
+                foreach(var comentario in comentariosBD)
+                {
+                    _cursosContext.Comentario.Remove(comentario);
+                }
+
+
+                //Precio
+                var precioBD = _cursosContext.Precio.Where(x => x.CursoId == request.Id).FirstOrDefault();
+                if(precioBD != null)
+                {
+                    _cursosContext.Precio.Remove(precioBD);
+                }
+
+
+                //Cursos
+                var curso = await _cursosContext.Curso.FindAsync(request.Id);
                 if(curso == null)
                 {
                     throw new ManejadorExcepcion(HttpStatusCode.NotFound, new { Mensaje = "No se encontró el curso" });
@@ -50,7 +76,6 @@ namespace Aplicacion.src.Cursos
                 _cursosContext.Remove(curso);
 
                 var resultado = await _cursosContext.SaveChangesAsync();
-
 
                 if(resultado >0)
                 {

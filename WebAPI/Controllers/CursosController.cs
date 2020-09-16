@@ -16,14 +16,14 @@ namespace WebAPI.Controllers
         
 
         [HttpGet]
-        public async Task<ActionResult<List<Curso>>> Get()
+        public async Task<ActionResult<List<CursoDto>>> Get()
         {
             return await Mediator.Send(new Consulta.ListaCursos());
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Curso>> Detalle(Guid id)
+        public async Task<ActionResult<CursoDto>> Detalle(Guid id)
         {
             return await Mediator.Send(new ConsultaId.CursoUnico { CursoId = id });
         }

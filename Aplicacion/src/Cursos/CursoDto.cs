@@ -16,8 +16,11 @@ namespace Aplicacion.src.Cursos
 
         public byte[] FotoPortada { get; set; }
 
-
         public ICollection<InstructorDto> Instructores { get; set; }
+
+        public PrecioDto Precio { get; set; }
+
+        public List<ComentarioDto> Comentarios { get; set; }
 
     }
 }

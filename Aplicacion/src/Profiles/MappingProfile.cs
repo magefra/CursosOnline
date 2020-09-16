@@ -1,9 +1,7 @@
 ﻿using Aplicacion.src.Cursos;
 using AutoMapper;
 using Dominio.src;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Aplicacion.src.Profiles
 {
@@ -12,11 +10,25 @@ namespace Aplicacion.src.Profiles
         public MappingProfile()
         {
 
-            CreateMap<Curso, CursoDto>().ReverseMap();
+            CreateMap<Curso, CursoDto>()
+                        .ForMember(x => x.Instructores,
+                                   y=> y.MapFrom(z => z.CursosInstructores
+                                                 .Select(a => a.Instructor).ToList()))
+                        .ForMember(x => x.Comentarios,
+                                   y => y.MapFrom(z => z.Comentarios))
+                        .ForMember(x => x.Precio,
+                                   y => y.MapFrom(z => z.PrecioPromocion))
+                        .ReverseMap();
+
+
 
             CreateMap<CursoInstructor, CursoInstructorDto>().ReverseMap();
 
             CreateMap<Instructor, InstructorDto>().ReverseMap();
+
+            CreateMap<Comentario, ComentarioDto>();
+
+            CreateMap<Precio, PrecioDto>();
         }
     }
 }
