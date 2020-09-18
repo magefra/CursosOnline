@@ -1,6 +1,7 @@
 ﻿using Aplicacion.src.Cursos;
 using AutoMapper;
 using Dominio.src;
+using Persistencia.src.DapperConexion.Instructores;
 using System.Linq;
 
 namespace Aplicacion.src.Profiles
@@ -24,7 +25,7 @@ namespace Aplicacion.src.Profiles
 
             CreateMap<CursoInstructor, CursoInstructorDto>().ReverseMap();
 
-            CreateMap<Instructor, InstructorDto>().ReverseMap();
+            CreateMap<IInstructor, InstructorDto>().ReverseMap();
 
             CreateMap<Comentario, ComentarioDto>();
 

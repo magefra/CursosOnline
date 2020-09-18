@@ -19,6 +19,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Persistencia.src.DapperConexion;
+using Persistencia.src.DapperConexion.Instructores;
 using Persistencia.src.Data;
 using Seguridad.src.TokenSeguridad;
 using System.Text;
@@ -41,8 +43,12 @@ namespace WebAPI
         {
 
             services.AddDbContext<CursosContext>(opt => {
-                opt.UseSqlServer(@"Server=MSI\SQLEXPRESS;Database=CursosOnline;User Id=magdiel;password=89878magdiel;Pooling=True;");
+                opt.UseSqlServer("Server=MSI\\SQLEXPRESS;Database=CursosOnline;User Id=magdiel;password=89878magdiel;Pooling=True;");
             });
+
+
+            services.AddOptions();
+            services.Configure<ConexionConfiguracion>(Configuration.GetSection("ConecctionStrings"));
 
 
             services.AddMediatR(typeof(Consulta.Manejador).Assembly);
@@ -81,6 +87,9 @@ namespace WebAPI
             services.AddScoped<IJwtGenerador, JwtGenerador>();
             services.AddScoped<IUsuarioSesion, UsuarioSesion>();
             services.AddAutoMapper(typeof(Consulta.Manejador));
+
+            services.AddTransient<IFactoryConnection, FactoryConnection>();
+            services.AddScoped<IInstructor, InstructorRepositorio>();
 
         }
 
