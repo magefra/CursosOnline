@@ -20,6 +20,9 @@ namespace Aplicacion.src.Cursos
 
         public PrecioDto Precio { get; set; }
 
+
+        public DateTime? FechaCreacion { get; set; }
+
         public List<ComentarioDto> Comentarios { get; set; }
 
     }

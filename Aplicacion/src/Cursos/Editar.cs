@@ -86,6 +86,7 @@ namespace Aplicacion.src.Cursos
                 curso.Titulo = request.Titulo ?? curso.Titulo;
                 curso.Descripcion = request.Descripcion ?? curso.Descripcion;
                 curso.FechaPublicacion = request.FechaPublicacion ?? curso.FechaPublicacion;
+                curso.FechaCreacion = DateTime.UtcNow;
 
 
 

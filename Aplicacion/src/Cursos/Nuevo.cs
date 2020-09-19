@@ -28,6 +28,8 @@ namespace Aplicacion.src.Cursos
             public decimal Precio { get; set; }
 
             public decimal Promocion { get; set; }
+
+
         }
 
 
@@ -79,7 +81,9 @@ namespace Aplicacion.src.Cursos
                     CursoId = _cursoId,
                     Titulo = request.Titulo,
                     Descripcion = request.Descripcion,
-                    FechaPublicacion = request.FechaPublicacion
+                    FechaPublicacion = request.FechaPublicacion,
+                    FechaCreacion = DateTime.UtcNow
+                   
                 };
                 _cursosContext.Curso.Add(curso);
 

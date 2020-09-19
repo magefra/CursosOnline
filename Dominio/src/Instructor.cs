@@ -15,6 +15,7 @@ namespace Dominio.src
 
         public byte[] FotoPerfil { get; set; }
 
+        public DateTime? FechaCreacion { get; set; }
 
         public ICollection<CursoInstructor> CursosInstructores { get; set; }
     }

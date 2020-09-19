@@ -14,6 +14,9 @@ namespace Aplicacion.src.Cursos
 
         public string ComentarioTexto { get; set; }
 
+        public DateTime? FechaCreacion { get; set; }
+
+
         public Guid CursoId { get; set; }
 
     }

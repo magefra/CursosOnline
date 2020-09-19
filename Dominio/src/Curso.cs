@@ -19,7 +19,10 @@ namespace Dominio.src
         public Precio PrecioPromocion { get; set; }
 
 
-        public ICollection<Comentario> Comentarios { get; set; }
+        public DateTime? FechaCreacion { get; set; }
+
+
+        public List<Comentario> Comentarios { get; set; }
 
 
         public ICollection<CursoInstructor> CursosInstructores { get; set; }

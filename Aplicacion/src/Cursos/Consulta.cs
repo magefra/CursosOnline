@@ -50,7 +50,7 @@ namespace Aplicacion.src.Cursos
                                                 .Include(x => x.Comentarios)
                                                 .Include(x =>x.PrecioPromocion)
                                                 .Include(x => x.CursosInstructores)
-                                                .ThenInclude(x => x.Instructor)
+                                                //.ThenInclude(x => x.Instructor)
                                                 .ToListAsync();
 
 

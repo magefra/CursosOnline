@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistencia.src.Data;
 
 namespace Persistencia.Migrations
 {
     [DbContext(typeof(CursosContext))]
-    partial class CursosContextModelSnapshot : ModelSnapshot
+    [Migration("20200919163425_fecha creacion")]
+    partial class fechacreacion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,9 +57,6 @@ namespace Persistencia.Migrations
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("FechaCreacion")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("FechaPublicacion")
                         .HasColumnType("datetime2");
