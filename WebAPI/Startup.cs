@@ -19,10 +19,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Persistencia.src.DapperConexion;
 using Persistencia.src.DapperConexion.Instructores;
 using Persistencia.src.Data;
 using Seguridad.src.TokenSeguridad;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using WebAPI.Middleware;
 
@@ -91,6 +94,23 @@ namespace WebAPI
             services.AddTransient<IFactoryConnection, FactoryConnection>();
             services.AddScoped<IInstructor, InstructorRepositorio>();
 
+
+            //Documentación
+            services.AddSwaggerGen(doc =>
+            {
+                doc.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Servicio para mantenimiento de cursos",
+                    Version = "v1"
+                });
+
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                doc.CustomSchemaIds(c => c.FullName);
+
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -115,6 +135,16 @@ namespace WebAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Cursos Online V1");
+                //options.RoutePrefix = string.Empty;
             });
         }
     }
