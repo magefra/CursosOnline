@@ -69,9 +69,40 @@ namespace Persistencia.src.DapperConexion.Instructores
 
 
 
-        public Task<int> Eliminar(Guid id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<int> Eliminar(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var storeProcedure = "usp_instructor_elimina";
+                var connection = _factoryConnection.GetConnection();
+
+                var result = await connection.ExecuteAsync(
+                        storeProcedure,
+                        new
+                        {
+                            InstructorId = id
+                        },
+                        commandType: System.Data.CommandType.StoredProcedure
+                        );
+
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("No se pudo eliminar el instructor", ex);
+            }
+            finally
+            {
+                _factoryConnection.CloseConnection();
+            }
         }
 
         /// <summary>
@@ -152,9 +183,40 @@ namespace Persistencia.src.DapperConexion.Instructores
 
         }
 
-        public Task<InstructorModel> ObtenerPorId(Guid id)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async  Task<InstructorModel> ObtenerPorId(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var storeProcedure = "usp_obtener_instructor_por_id";
+                var connection = _factoryConnection.GetConnection();
+
+                var restult =await connection.QueryFirstOrDefaultAsync<InstructorModel>(
+                    storeProcedure,
+                    new
+                    {
+                        InstructorId = id
+                    },
+                    commandType : System.Data.CommandType.StoredProcedure
+                    );
+
+                return restult;
+            }
+            catch (Exception ex)
+            {
+
+
+                throw new Exception("No se encontró el instructor", ex);
+            }
+            finally
+            {
+                _factoryConnection.CloseConnection();
+            }
         }
     }
 }
