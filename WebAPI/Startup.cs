@@ -22,6 +22,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Persistencia.src.DapperConexion;
 using Persistencia.src.DapperConexion.Instructores;
+using Persistencia.src.DapperConexion.Paginacion;
 using Persistencia.src.Data;
 using Seguridad.src.TokenSeguridad;
 using System.IO;
@@ -93,6 +94,7 @@ namespace WebAPI
 
             services.AddTransient<IFactoryConnection, FactoryConnection>();
             services.AddScoped<IInstructor, InstructorRepositorio>();
+            services.AddScoped<IPaginacion, PaginacionRespoitorio>();
 
 
             //Documentación
