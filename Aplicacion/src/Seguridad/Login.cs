@@ -84,8 +84,8 @@ namespace Aplicacion.src.Seguridad
 
 
                 var resultado = await _signInManager.CheckPasswordSignInAsync(usuario, request.Passoword, false);
-
-
+                var resultadoRoles =await _userManager.GetRolesAsync(usuario);
+                var listaRoles = new List<string>(resultadoRoles);
 
                 if (resultado.Succeeded)
                 {
@@ -93,7 +93,7 @@ namespace Aplicacion.src.Seguridad
                     {
                         NombreCompleto = usuario.NombreCompleto,
                         Email = usuario.Email,
-                        Token = _jwtGenerador.crearToken(usuario),
+                        Token = _jwtGenerador.crearToken(usuario, listaRoles),
                         UserName = usuario.UserName,
                         Imagen  = null
                     };

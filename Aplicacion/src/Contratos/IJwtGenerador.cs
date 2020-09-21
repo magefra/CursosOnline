@@ -11,6 +11,6 @@ namespace Aplicacion.src.Contratos
         /// 
         /// </summary>
         /// <returns></returns>
-        string crearToken(Usuario usuario);
+        string crearToken(Usuario usuario, List<string> roles);
     }
 }

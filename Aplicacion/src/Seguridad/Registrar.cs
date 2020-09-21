@@ -125,7 +125,7 @@ namespace Aplicacion.src.Seguridad
                     return new UsuarioData
                     {
                         NombreCompleto = usuario.NombreCompleto,
-                        Token = _jwtGenerador.crearToken(usuario),
+                        Token = _jwtGenerador.crearToken(usuario, null),
                         UserName = usuario.UserName,
                         Email = usuario.Email
                     };

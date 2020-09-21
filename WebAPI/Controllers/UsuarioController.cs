@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
-   
+
     [AllowAnonymous]
     public class UsuarioController : MiControllerBase
     {
@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<UsuarioData>> Login(Login.Ejecuta parametros)
         {
             return await Mediator.Send(parametros);
-        } 
+        }
 
 
         /// <summary>
@@ -43,6 +43,16 @@ namespace WebAPI.Controllers
         {
             return await Mediator.Send(new UsuarioActual.Ejecutar());
         }
+
+
+
+
+        [HttpPut]
+        public async Task<ActionResult<UsuarioData>> Actualizar(UsuarioActualizar.Ejecuta parametros)
+        {
+            return await Mediator.Send(parametros);
+        }
+
 
     }
 }

@@ -57,13 +57,14 @@ namespace Aplicacion.src.Seguridad
             {
                 var usuario = await _userManager.FindByNameAsync(_usuarioSesion.obtenerUsuarioSesion());
 
-
+                var resultadoRoles = await _userManager.GetRolesAsync(usuario);
+                var listaRoles = new List<string>(resultadoRoles);
 
                 return new UsuarioData
                 {
                     UserName = usuario.UserName,
                     NombreCompleto = usuario.NombreCompleto,
-                    Token = _jwtGenerador.crearToken(usuario),
+                    Token = _jwtGenerador.crearToken(usuario, listaRoles),
                     Email = usuario.Email,
                     Imagen =usuario.Email
                 };
