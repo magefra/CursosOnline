@@ -1,25 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {ThemeProvider as MuithemeProvider} from '@material-ui/core/styles';
+import theme from './theme/theme';
+import RegistrarUsuario from './componentes/seguridad/RegistrarUsuario';
+import Login from './componentes/seguridad/Login';
+import PerfilUsuario from './componentes/seguridad/PerfilUsuario';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <MuithemeProvider theme= {theme}>
+
+          <PerfilUsuario />
+
+        </MuithemeProvider>
+   
   );
 }
 
