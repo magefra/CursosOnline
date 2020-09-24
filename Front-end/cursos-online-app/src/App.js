@@ -10,7 +10,7 @@ function App() {
   return (
         <MuithemeProvider theme= {theme}>
 
-          <PerfilUsuario />
+          <RegistrarUsuario />
 
         </MuithemeProvider>
    

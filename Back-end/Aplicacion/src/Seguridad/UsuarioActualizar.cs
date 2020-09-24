@@ -19,9 +19,7 @@ namespace Aplicacion.src.Seguridad
     {
         public class Ejecuta : IRequest<UsuarioData>
         {
-            public string Nombre { get; set; }
-
-            public string Apellidos { get; set; }
+            public string NombreCompleto { get; set; }
 
             public string Email { get; set; }
 
@@ -37,8 +35,7 @@ namespace Aplicacion.src.Seguridad
         {
             public EjecutaValidador()
             {
-                RuleFor(x => x.Nombre).NotEmpty();
-                RuleFor(x => x.Apellidos).NotEmpty();
+                RuleFor(x => x.NombreCompleto).NotEmpty();
                 RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 RuleFor(x => x.Password).NotEmpty();
                 RuleFor(x => x.UserName).NotEmpty();
@@ -126,7 +123,7 @@ namespace Aplicacion.src.Seguridad
 
 
 
-                usuarioToken.NombreCompleto = request.Nombre + " " + request.Apellidos;
+                usuarioToken.NombreCompleto = request.NombreCompleto;
                 //Método para encriptar el password
                 usuarioToken.PasswordHash = _passwordHasher.HashPassword(usuarioToken, request.Password);
                 usuarioToken.Email = request.Email;

@@ -46,6 +46,14 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+            services.AddCors(o => o.AddPolicy("corsApp", builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+            }));
+
             services.AddDbContext<CursosContext>(opt => {
                 opt.UseSqlServer("Server=MSI\\SQLEXPRESS;Database=CursosOnline;User Id=magdiel;password=89878magdiel;Pooling=True;");
             });
@@ -123,7 +131,7 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
+            app.UseCors("corsApp");
 
             app.UseMiddleware<ManejadorErrorMiddleware>();
 
