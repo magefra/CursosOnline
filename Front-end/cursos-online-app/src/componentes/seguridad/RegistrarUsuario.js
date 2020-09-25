@@ -1,7 +1,7 @@
 import { Button, Container, Grid, TextField, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import style from '../Tool/Style'
-
+import {registrarUsuario} from '../../actions/UsuarioActions'
 
 
 const RegistrarUsuario = () => {
@@ -24,9 +24,13 @@ const RegistrarUsuario = () => {
     };
 
 
-    const registrarUsuario = e =>{
+    const registrarUsuarioBoton = e =>{
         e.preventDefault();
-        console.log("imprime los valores de memoria temporal del usuario", usuario);
+        
+       registrarUsuario(usuario).then(response => {
+            console.log("Se registro exitosamente el usuario", response);
+            window.localStorage.setItem("token_seguridad", response.data.token);
+        });
     }
 
     return (
@@ -79,7 +83,7 @@ const RegistrarUsuario = () => {
 
                         <Grid container justify="center">
                             <Grid item xs ={12} md = {6}>
-                                <Button type = "submit" onClick ={registrarUsuario} fullWidth variant="contained" color = "primary" size = "large" style ={style.submit} >
+                                <Button type = "submit" onClick ={registrarUsuarioBoton} fullWidth variant="contained" color = "primary" size = "large" style ={style.submit} >
                                     Enviar
                                 </Button>
 
