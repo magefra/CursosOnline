@@ -18,7 +18,7 @@ namespace Aplicacion.src.Seguridad
         {
             public string Email { get; set; }
 
-            public string Passoword { get; set; }
+            public string Password { get; set; }
         }
 
 
@@ -30,7 +30,7 @@ namespace Aplicacion.src.Seguridad
                     .NotEmpty()
                     .WithMessage("El correo no debe estar vació");
 
-                RuleFor(x => x.Passoword)
+                RuleFor(x => x.Password)
                     .NotEmpty()
                     .WithMessage("El password no debe estar vació");
             }
@@ -83,7 +83,7 @@ namespace Aplicacion.src.Seguridad
                 }
 
 
-                var resultado = await _signInManager.CheckPasswordSignInAsync(usuario, request.Passoword, false);
+                var resultado = await _signInManager.CheckPasswordSignInAsync(usuario, request.Password, false);
                 var resultadoRoles =await _userManager.GetRolesAsync(usuario);
                 var listaRoles = new List<string>(resultadoRoles);
 

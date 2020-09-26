@@ -11,6 +11,7 @@ export const registrarUsuario = usuario => {
 };
 
 
+
 export const obtenerUsuarioActual = () =>{
     return new Promise((resolve, eject) =>{
 
@@ -22,9 +23,21 @@ export const obtenerUsuarioActual = () =>{
 
 
 
+
 export const actualizarUsuario = (usuario) => {
     return new Promise((resolve, eject) => {
         HttpClient.put('/usuario', usuario).then(response => {
+            resolve(response);
+        });
+    });
+}
+
+
+
+export const loginUsuario = usuario => {
+    return new Promise((resolve, eject) =>{
+
+        HttpClient.post('/usuario/login', usuario).then(response  =>{
             resolve(response);
         });
     });
